@@ -30,7 +30,15 @@
             </div>
             <div class="col-sm-6">
                 <h3>Your Open Requests</h3>
-
+                <p><a th:href="@{'/request/create'}" >Make a Request</a></p>
+                <div th:each="userReq : ${usersRequests}">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p th:text="${userReq.itemName}"></p>
+                            <p th:text="${userReq.filledStatus}"></p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

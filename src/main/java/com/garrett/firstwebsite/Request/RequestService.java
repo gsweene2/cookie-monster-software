@@ -1,5 +1,7 @@
 package com.garrett.firstwebsite.Request;
 
+import com.garrett.firstwebsite.item.ItemService;
+import com.garrett.firstwebsite.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,12 @@ public class RequestService {
 
     @Autowired
     private RequestRepository requestRepository;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private ItemService itemService;
 
     private List<Request> requests = new ArrayList<>();
 
@@ -45,4 +53,37 @@ public class RequestService {
     }
 
     public void deleteRequest(long id) { requestRepository.deleteById(id);}
+
+    public PrettyRequest requestToPrettyRequest(Request request){
+
+        String dateFilled;
+        String fulfillerFirstName;
+        String fulfillerLastName;
+        String filledStatus;
+
+        if (request.getFilled() == 0){
+            fulfillerFirstName = "";
+            fulfillerLastName = "";
+            dateFilled = "";
+            filledStatus = "Unfilled";
+        } else {
+            fulfillerFirstName = userService.getPerson(request.getUserId()).get().getName();
+            fulfillerLastName = userService.getPerson(request.getUserId()).get().getLastName();
+            dateFilled = request.getDateFilled().toString();
+            filledStatus = "Filled";
+        }
+
+        PrettyRequest prettyRequest = new PrettyRequest(
+                request.getId(),
+                itemService.getItem(request.getItemId()).get().getName(),
+                itemService.getItem(request.getItemId()).get().getAmount(),
+                userService.getPerson(request.getUserId()).get().getName(),
+                userService.getPerson(request.getUserId()).get().getLastName(),
+                request.getDateRequested().toString(),
+                dateFilled,
+                fulfillerFirstName,
+                fulfillerLastName,
+                filledStatus);
+        return prettyRequest;
+    }
 }

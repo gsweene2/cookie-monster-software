@@ -7,12 +7,13 @@
 
     <body class="container">
         <h1>Request Submitted!</h1>
-        <p th:text="'Order ID: ' + ${request.id}" />
-        <p th:text="'Item ID: ' + ${request.itemId}" />
-        <p th:text="'User ID: ' + ${request.userId}" />
-        <p th:text="'Filled?: ' + ${request.filled}" />
-        <p th:text="'Date Requested: ' + ${request.dateRequested}" />
-        <p th:text="'Date Filled: ' + ${request.dateFilled}" />
+        <p th:text="'Order ID: ' + ${prettyRequest.id}" />
+        <p th:text="'Item: ' + ${prettyRequest.itemName}" />
+        <p th:text="'Cost: ' + ${prettyRequest.itemCost}" />
+        <p th:text="'Requestor: ' + ${prettyRequest.requestorFirstName} + ' ' + ${prettyRequest.requestorLastName}" />
+        <p th:text="'Filled?: ' + ${prettyRequest.filledStatus}" />
+        <p th:text="'Date Requested: ' + ${prettyRequest.dateRequested}" />
+        <p th:text="'Date Filled: ' + ${prettyRequest.dateFilled}" />
 
         <a href="/request/create">Create another request</a>
     </body>
