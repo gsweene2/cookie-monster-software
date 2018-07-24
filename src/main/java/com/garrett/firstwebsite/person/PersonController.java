@@ -1,5 +1,9 @@
 package com.garrett.firstwebsite.person;
 
+import com.garrett.firstwebsite.Request.PrettyRequest;
+import com.garrett.firstwebsite.Request.Request;
+import com.garrett.firstwebsite.Request.RequestRepository;
+import com.garrett.firstwebsite.Request.RequestService;
 import com.garrett.firstwebsite.profession.ProfessionService;
 
 import com.garrett.firstwebsite.user.User;
@@ -36,6 +40,11 @@ public class PersonController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    RequestRepository requestRepository;
+
+    @Autowired
+    RequestService requestService;
 
     /**
      * Get all persons
@@ -132,6 +141,19 @@ public class PersonController {
                     ));
         }
         model.addObject("otherPrettyUsers", otherPrettyUsers);
+
+
+        // ************************************** //
+        // *********** User's Request ************** //
+        // ************************************** //
+
+        List<Request> usersRequests = requestRepository.findByUserId(userRepository.findByEmail(authentication.getName()).getId());
+        ArrayList<PrettyRequest> prettyRequestsList = new ArrayList<>();
+        for (Request req : usersRequests){
+            prettyRequestsList.add(requestService.requestToPrettyRequest(req));
+        }
+
+        model.addObject("usersRequests",prettyRequestsList);
 
         model.setViewName("person/dashboard");
         return model;
