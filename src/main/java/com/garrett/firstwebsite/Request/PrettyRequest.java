@@ -31,7 +31,6 @@ public class PrettyRequest {
 
     public PrettyRequest(long id,
                    String itemName,
-                   long userId,
                    double itemCost,
                    String requestorFirstName,
                    String requestorLastName,

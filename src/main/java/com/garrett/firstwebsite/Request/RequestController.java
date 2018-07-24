@@ -2,11 +2,13 @@ package com.garrett.firstwebsite.Request;
 
 import com.garrett.firstwebsite.item.ItemService;
 import com.garrett.firstwebsite.user.UserRepository;
+import com.garrett.firstwebsite.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -28,6 +30,9 @@ public class RequestController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    UserService userService;
+
     /**
      * Get all transactions
      */
@@ -45,13 +50,51 @@ public class RequestController {
     }
 
     @PostMapping("/create")
-    public String createRequestResult(@ModelAttribute Request request, Authentication authentication){
+    public ModelAndView createRequestResult(@ModelAttribute Request request, Authentication authentication){
         request.setDateRequested(LocalDate.now(ZoneId.of("America/Montreal")));
         request.setUserId(userRepository.findByEmail(authentication.getName()).getId());
         request.setFilled(0);
-
         requestService.addRequest(request);
-        return "request/result";
+
+        PrettyRequest prettyRequest = requestToPrettyRequest(request);
+        ModelAndView model = new ModelAndView();
+        model.addObject("prettyRequest", prettyRequest);
+        model.setViewName("request/result");
+
+        return model;
+    }
+
+    public PrettyRequest requestToPrettyRequest(Request request){
+
+        String dateFilled;
+        String fulfillerFirstName;
+        String fulfillerLastName;
+        String filledStatus;
+
+        if (request.getFilled() == 0){
+            fulfillerFirstName = "";
+            fulfillerLastName = "";
+            dateFilled = "";
+            filledStatus = "Unfilled";
+        } else {
+            fulfillerFirstName = userService.getPerson(request.getUserId()).get().getName();
+            fulfillerLastName = userService.getPerson(request.getUserId()).get().getLastName();
+            dateFilled = request.getDateFilled().toString();
+            filledStatus = "Filled";
+        }
+
+        PrettyRequest prettyRequest = new PrettyRequest(
+                request.getId(),
+                itemService.getItem(request.getItemId()).get().getName(),
+                itemService.getItem(request.getItemId()).get().getAmount(),
+                userService.getPerson(request.getUserId()).get().getName(),
+                userService.getPerson(request.getUserId()).get().getLastName(),
+                request.getDateRequested().toString(),
+                dateFilled,
+                fulfillerFirstName,
+                fulfillerLastName,
+                filledStatus);
+        return prettyRequest;
     }
 
     /**
