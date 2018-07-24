@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <div th:replace="fragments/header :: header"></div>
+    <div th:replace="fragments/navbar :: navbar"></div>
+    <div th:replace="fragments/hellobar :: hellobar"></div>
+
+    <body class="container">
+        <h1>Add a Profession</h1>
+        <form action="#" th:action="@{/profession/create}" th:object="${professionPassed}" method="post">
+            <p>Name: <input type="text" th:field="*{name}" /></p>
+            <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+        </form>
+    </body>
+    <div th:replace="fragments/footer :: footer"></div>
+</html>

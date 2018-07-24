@@ -1,0 +1,14 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <div th:replace="fragments/header :: header"></div>
+    <div th:replace="fragments/navbar :: navbar"></div>
+    <div th:replace="fragments/hellobar :: hellobar"></div>
+
+    <body class="container">
+        <h1>Result</h1>
+        <p th:text="'Name: ' + ${profession.name}" />
+        <a href="/profession/create">Create another profession</a>
+    </body>
+    <div th:replace="fragments/footer :: footer"></div>
+</html>

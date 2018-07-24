@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <div th:replace="fragments/header :: header"></div>
+    <div th:replace="fragments/navbar :: navbar"></div>
+    <div th:replace="fragments/hellobar :: hellobar"></div>
+
+    <body>
+    <div class="container">
+        <h1 style="font-family: 'Pacifico', cursive; font-size: 140%">Dashboard</h1>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <h3>Featured Users!</h3>
+                <p><a th:href="@{/person/search}" >View All Others</a></p>
+                <div th:each="other : ${otherPrettyUsers}">
+                    <div class="row">
+                        <div class="col-3">
+                            <!-- https://s3.amazonaws.com/alumnest-profiles/profile-icon.png -->
+                            <img style="width:100%;" src="https://s3.amazonaws.com/alumnest-profiles/profile-icon.png" alt="Smiley face">
+                        </div>
+                        <div class="col-9">
+                            <h5 th:text="${other.firstName} + ' ' + ${other.lastName}" />
+                            <p th:text="${other.profession}"></p>
+                            <p><a th:href="@{'/person/about/' + ${other.id}}" >Learn More</a></p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <h3>Your Open Requests</h3>
+
+            </div>
+        </div>
+    </div>
+
+
+    </body>
+    <div th:replace="fragments/footer :: footer"></div>
+</html>

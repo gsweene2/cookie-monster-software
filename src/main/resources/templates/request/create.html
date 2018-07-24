@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <div th:replace="fragments/header :: header"></div>
+    <div th:replace="fragments/navbar :: navbar"></div>
+    <div th:replace="fragments/hellobar :: hellobar"></div>
+
+    <body class="container">
+        <h1>Create an Item</h1>
+        <form action="#" th:action="@{/request/create}" th:object="${requestPassed}" method="post">
+            <p>Select an Item<select class="form-control" th:field="*{itemId}">
+                <option th:each="item : ${possibleItems}" th:value="${item.id}" th:text="${item.name} + ' ($' + ${item.amount} + ') '"></option>
+            </select></p>
+            <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+        </form>
+    </body>
+    <div th:replace="fragments/footer :: footer"></div>
+</html>

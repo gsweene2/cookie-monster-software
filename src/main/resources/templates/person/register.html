@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="fragments/header :: header"></div>
+<div th:replace="fragments/navbar :: navbar"></div>
+<div th:replace="fragments/hellobar :: hellobar"></div>
+
+<body>
+<div class="container">
+    <h1>First, just a little information</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <form action="#" th:action="@{/person/register}" th:object="${personPassed}" method="post">
+                <p>How you gonna pay for that Snack?<select class="form-control" th:field="*{professionId}">
+                    <option th:each="profession : ${professionsList}" th:value="${profession.id}" th:text="${profession.name}"></option>
+                </select></p>
+                <p><input type="submit" class="btn btn-success" value="Submit" /> <input type="reset" class="btn btn-warning" value="Reset" /></p>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+<div th:replace="fragments/footer :: footer"></div>
+</html>

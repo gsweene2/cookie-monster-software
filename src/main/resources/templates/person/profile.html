@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <div th:replace="fragments/header :: header"></div>
+    <div th:replace="fragments/navbar :: navbar"></div>
+    <div th:replace="fragments/hellobar :: hellobar"></div>
+
+    <body>
+    <div class="container">
+        <h3>My Profile</h3>
+        <p th:text="'First Name: ' + ${thisuser.name}" />
+        <p th:text="'Last Name: ' + ${thisuser.lastName}" />
+        <p th:text="'Email: ' + ${thisuser.email}" />
+        <p th:text="'Phone: ' + ${thisuser.phone}" />
+        <p th:text="'Profession: ' + ${profession.name}" />
+    </div>
+
+    </body>
+    <div th:replace="fragments/footer :: footer"></div>
+</html>

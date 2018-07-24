@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <div th:replace="fragments/header :: header"></div>
+    <div th:replace="fragments/navbar :: navbar"></div>
+    <div th:replace="fragments/hellobar :: hellobar"></div>
+
+    <body class="container">
+        <h1>Request Submitted!</h1>
+        <p th:text="'Order ID: ' + ${request.id}" />
+        <p th:text="'Item ID: ' + ${request.itemId}" />
+        <p th:text="'User ID: ' + ${request.userId}" />
+        <p th:text="'Filled?: ' + ${request.filled}" />
+        <p th:text="'Date Requested: ' + ${request.dateRequested}" />
+        <p th:text="'Date Filled: ' + ${request.dateFilled}" />
+
+        <a href="/request/create">Create another request</a>
+    </body>
+    <div th:replace="fragments/footer :: footer"></div>
+</html>

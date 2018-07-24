@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <div th:replace="fragments/header :: header"></div>
+    <div th:replace="fragments/navbar :: navbar"></div>
+    <div th:replace="fragments/hellobar :: hellobar"></div>
+
+    <body class="container">
+        <h1>All Professions</h1>
+
+        <table class="table table-striped table-responsive">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="profession : ${allProfessions}">
+                    <td th:text="'id: ' + ${profession.id}" />
+                    <td th:text="'name: ' + ${profession.name}" />
+                    <td>edit|view|delete</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </body>
+    <div th:replace="fragments/footer :: footer"></div>
+</html>

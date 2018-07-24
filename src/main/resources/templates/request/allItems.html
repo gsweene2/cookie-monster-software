@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <div th:replace="fragments/header :: header"></div>
+    <div th:replace="fragments/navbar :: navbar"></div>
+    <div th:replace="fragments/hellobar :: hellobar"></div>
+
+    <body class="container">
+        <h1>All Requests</h1>
+
+        <table class="table table-striped table-responsive">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Item ID</th>
+                    <th scope="col">User ID</th>
+                    <th scope="col">Is Filled</th>
+                    <th scope="col">Date Requested</th>
+                    <th scope="col">Date Filled</th>
+                    <th scope="col">edit|view|delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="request : ${allItems}">
+                    <td th:text="'id: ' + ${request.id}" />
+                    <td th:text="'item id: ' + ${request.itemId}" />
+                    <td th:text="'user id: ' + ${request.userId}" />
+                    <td th:text="'is filled: ' + ${request.isFilled}" />
+                    <td th:text="'date requested: ' + ${request.dateRequested}" />
+                    <td th:text="'date filled: ' + ${request.dateFilled}" />
+                    <td>edit|view|delete</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </body>
+    <div th:replace="fragments/footer :: footer"></div>
+</html>

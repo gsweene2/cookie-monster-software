@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <div th:replace="fragments/header :: header"></div>
+    <div th:replace="fragments/navbar :: navbar"></div>
+    <div th:replace="fragments/hellobar :: hellobar"></div>
+
+    <body class="container">
+        <h1>Result</h1>
+        <p th:text="'Name: ' + ${item.name}" />
+        <p th:text="'Cost: ' + ${item.amount}" />
+        <p th:text="'In Stock: ' + ${item.instock}" />
+
+        <a href="/item/create">Create another item</a>
+    </body>
+    <div th:replace="fragments/footer :: footer"></div>
+</html>
