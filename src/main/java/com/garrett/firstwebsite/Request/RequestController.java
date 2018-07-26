@@ -12,6 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -38,7 +40,12 @@ public class RequestController {
      */
     @RequestMapping("")
     public String getAllTransactions(Model model) {
-        model.addAttribute("allRequests", requestService.getAllRequest());
+        List<Request> allRequests = requestService.getAllRequest();
+        ArrayList<PrettyRequest> allPrettyRequests = new ArrayList<>();
+        for (Request request : allRequests){
+            allPrettyRequests.add(requestService.requestToPrettyRequest(request));
+        }
+        model.addAttribute("allRequests", allPrettyRequests);
         return "request/allRequests";
     }
 
@@ -77,8 +84,8 @@ public class RequestController {
             dateFilled = "";
             filledStatus = "Unfilled";
         } else {
-            fulfillerFirstName = userService.getPerson(request.getUserId()).get().getName();
-            fulfillerLastName = userService.getPerson(request.getUserId()).get().getLastName();
+            fulfillerFirstName = userService.getPerson(request.getFillerId()).get().getName();
+            fulfillerLastName = userService.getPerson(request.getFillerId()).get().getLastName();
             dateFilled = request.getDateFilled().toString();
             filledStatus = "Filled";
         }

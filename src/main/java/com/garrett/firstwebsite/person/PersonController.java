@@ -147,13 +147,27 @@ public class PersonController {
         // *********** User's Request ************** //
         // ************************************** //
 
-        List<Request> usersRequests = requestRepository.findByUserId(userRepository.findByEmail(authentication.getName()).getId());
+        List<Request> allRequests = requestService.getAllRequest();
         ArrayList<PrettyRequest> prettyRequestsList = new ArrayList<>();
-        for (Request req : usersRequests){
-            prettyRequestsList.add(requestService.requestToPrettyRequest(req));
+        for (Request req : allRequests){
+            if (req.getUserId() == thisUser.getId()){
+                prettyRequestsList.add(requestService.requestToPrettyRequest(req));
+            }
         }
 
         model.addObject("usersRequests",prettyRequestsList);
+
+
+        // ************************************** //
+        // *********** All Users Request ************** //
+        // ************************************** //
+
+        ArrayList<PrettyRequest> allPrettyRequests = new ArrayList<>();
+        for (Request req : allRequests){
+            allPrettyRequests.add(requestService.requestToPrettyRequest(req));
+        }
+
+        model.addObject("allRequests", allPrettyRequests);
 
         model.setViewName("person/dashboard");
         return model;

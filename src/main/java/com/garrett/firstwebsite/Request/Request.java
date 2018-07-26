@@ -6,6 +6,7 @@ import org.springframework.lang.Nullable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.Null;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -17,6 +18,8 @@ public class Request {
     private long itemId;
     private long userId;
     private int filled;
+    @Nullable
+    private long fillerId;
     private LocalDate dateRequested;
     @Nullable
     private LocalDate dateFilled;
@@ -29,6 +32,7 @@ public class Request {
                 long itemId,
                 long userId,
                 int filled,
+                long fillerId,
                 LocalDate dateRequested,
                    LocalDate dateFilled) {
         super();
@@ -36,6 +40,7 @@ public class Request {
         this.itemId = itemId;
         this.userId = userId;
         this.filled = filled;
+        this.fillerId = fillerId;
         this.dateRequested = dateRequested;
         if (dateFilled == null){
             this.dateFilled = null;
@@ -90,5 +95,13 @@ public class Request {
 
     public void setDateFilled(LocalDate dateFilled) {
         this.dateFilled = dateFilled;
+    }
+
+    public long getFillerId() {
+        return fillerId;
+    }
+
+    public void setFillerId(long fillerId) {
+        this.fillerId = fillerId;
     }
 }
