@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.jws.WebParam;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -62,12 +63,37 @@ public class RequestController {
         request.setUserId(userRepository.findByEmail(authentication.getName()).getId());
         request.setFilled(0);
         requestService.addRequest(request);
-
         PrettyRequest prettyRequest = requestToPrettyRequest(request);
         ModelAndView model = new ModelAndView();
         model.addObject("prettyRequest", prettyRequest);
         model.setViewName("request/result");
+        return model;
+    }
 
+    @GetMapping("/fulfill/{id}")
+    public ModelAndView promptFulfillRequest(@PathVariable("id") Long id){
+        // Need to pass the request and a button to fulfill it
+        Request thisReq = requestService.getRequest(id).get();
+        PrettyRequest thisPrettyReq = requestService.requestToPrettyRequest(thisReq);
+        ModelAndView model = new ModelAndView();
+        model.addObject("prettyRequest", thisPrettyReq);
+        model.setViewName("request/approve");
+        return model;
+    }
+
+    @PostMapping("/fulfill/{id}")
+    public ModelAndView fulfillRequest(@PathVariable("id") Long id){
+        // Anyone can fullfill a request
+        // The id passed is the request to be filled
+
+        // Get Request
+
+        // Save request as filled with new person
+
+        // Fill Request
+
+        ModelAndView model = new ModelAndView();
+        model.setViewName("person/dashboard");
         return model;
     }
 
