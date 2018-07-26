@@ -31,6 +31,7 @@
             <div class="col-sm-6">
                 <h3>Your Open Requests</h3>
                 <p><a th:href="@{'/request/create'}" >Make a Request</a></p>
+                <!--
                 <div th:each="userReq : ${usersRequests}">
                     <div class="row">
                         <div class="col-md-12">
@@ -39,6 +40,49 @@
                         </div>
                     </div>
                 </div>
+                -->
+
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Request Id</th>
+                        <th scope="col">Item</th>
+                        <th scope="col">Date Requested</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="req : ${usersRequests}">
+                        <th scope="row" th:text="${req.id}"></th>
+                        <td th:text="${req.itemName}"></td>
+                        <td th:text="${req.dateRequested}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-sm-12">
+                <h3>Recent Requests</h3>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Request ID</th>
+                        <th scope="col">Item</th>
+                        <th scope="col">Requestor</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Filled By</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="req : ${allRequests}">
+                        <th scope="row" th:text="${req.id}"></th>
+                        <td th:text="${req.itemName}"></td>
+                        <td th:text="${req.requestorFirstName} + ' ' + ${req.requestorLastName}"></td>
+                        <td th:text="${req.filledStatus}"></td>
+                        <td th:text="${req.filledByFirstName} + ' ' + ${req.filledByLastName}"></td>
+                        <td> delete | MarkFilled</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
