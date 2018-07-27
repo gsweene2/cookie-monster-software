@@ -6,9 +6,9 @@
 <div th:replace="fragments/hellobar :: hellobar"></div>
 
 <body class="container">
-<h1>Verify Requeste Approval</h1>
+<h1>Verify Order Fulfillment</h1>
 
-    <form action="#" th:action="@{'/fulfill/' + {prettyRequest.id}" th:object="${prettyRequest}" method="post">
+    <form action="#" th:action="@{/request/fulfill/} + ${prettyRequest.id}" th:object="${prettyRequest}" method="post">
         <p th:text="'Order ID: ' + ${prettyRequest.id}" />
         <p th:text="'Item: ' + ${prettyRequest.itemName}" />
         <p th:text="'Cost: ' + ${prettyRequest.itemCost}" />

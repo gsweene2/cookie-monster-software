@@ -79,7 +79,11 @@
                         <td th:text="${req.requestorFirstName} + ' ' + ${req.requestorLastName}"></td>
                         <td th:text="${req.filledStatus}"></td>
                         <td th:text="${req.filledByFirstName} + ' ' + ${req.filledByLastName}"></td>
-                        <td> delete | MarkFilled</td>
+                        <td th:switch="${req.filledStatus}">
+                            <p th:case="Unfilled"><a th:href="@{'/request/delete/' + ${req.id}}" >Delete</a> | <a th:href="@{'/request/fulfill/' + ${req.id}}" >Mark Filled</a></p>
+                            <p th:case="*"><a th:href="@{'/request/delete/' + ${req.id}}" >Delete</a> | Filled</p>
+                        </td>
+
                     </tr>
                     </tbody>
                 </table>

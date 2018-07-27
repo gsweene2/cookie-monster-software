@@ -129,7 +129,6 @@ public class PersonController {
         // ************************************** //
 
         List<Person> otherUsers = personService.getPersons();
-        // Log the number of alumni found
         ArrayList<PrettyPerson> otherPrettyUsers = new ArrayList<PrettyPerson>();
         for (Person p1 : otherUsers){
             otherPrettyUsers.add(new PrettyPerson(p1.getId(),
@@ -144,16 +143,19 @@ public class PersonController {
 
 
         // ************************************** //
-        // *********** User's Request ************** //
+        // *********** User's Unfilled Request ************** //
         // ************************************** //
 
         List<Request> allRequests = requestService.getAllRequest();
         ArrayList<PrettyRequest> prettyRequestsList = new ArrayList<>();
         for (Request req : allRequests){
             if (req.getUserId() == thisUser.getId()){
-                prettyRequestsList.add(requestService.requestToPrettyRequest(req));
+                if (req.getFilled() == 0){
+                    prettyRequestsList.add(requestService.requestToPrettyRequest(req));
+                }
             }
         }
+        Collections.reverse(prettyRequestsList);
 
         model.addObject("usersRequests",prettyRequestsList);
 
@@ -166,6 +168,7 @@ public class PersonController {
         for (Request req : allRequests){
             allPrettyRequests.add(requestService.requestToPrettyRequest(req));
         }
+        Collections.reverse(allPrettyRequests);
 
         model.addObject("allRequests", allPrettyRequests);
 
