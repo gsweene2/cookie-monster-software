@@ -1,6 +1,9 @@
 package com.garrett.firstwebsite.Request;
 
 import com.garrett.firstwebsite.item.ItemService;
+import com.garrett.firstwebsite.person.Person;
+import com.garrett.firstwebsite.person.PersonController;
+import com.garrett.firstwebsite.user.User;
 import com.garrett.firstwebsite.user.UserRepository;
 import com.garrett.firstwebsite.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.jws.WebParam;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -34,6 +38,9 @@ public class RequestController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    PersonController personController;
 
     /**
      * Get all transactions
@@ -62,12 +69,44 @@ public class RequestController {
         request.setUserId(userRepository.findByEmail(authentication.getName()).getId());
         request.setFilled(0);
         requestService.addRequest(request);
-
         PrettyRequest prettyRequest = requestToPrettyRequest(request);
         ModelAndView model = new ModelAndView();
         model.addObject("prettyRequest", prettyRequest);
         model.setViewName("request/result");
+        return model;
+    }
 
+    @GetMapping("/fulfill/{id}")
+    public ModelAndView promptFulfillRequest(@PathVariable("id") Long id){
+        // Need to pass the request and a button to fulfill it
+        Request thisReq = requestService.getRequest(id).get();
+        PrettyRequest thisPrettyReq = requestService.requestToPrettyRequest(thisReq);
+        ModelAndView model = new ModelAndView();
+        model.addObject("prettyRequest", thisPrettyReq);
+        model.setViewName("request/approve");
+        return model;
+    }
+
+    @PostMapping("/fulfill/{id}")
+    public ModelAndView fulfillRequest(@PathVariable("id") Long id, Authentication authentication){
+
+        // Get Request
+        Request request = requestService.getRequest(id).get();
+        // determine the fulfiller
+        User thisUser = userRepository.findByEmail(authentication.getName());
+        // Update the request
+        request.setFilled(1);
+        request.setFillerId(thisUser.getId());
+        request.setDateFilled(LocalDate.now(ZoneId.of("America/Montreal")));
+        // Save request as filled with new person
+        requestService.updateRequest(id, request);
+
+
+        // Return Dashboard
+        //Example on how to route!
+        ModelAndView model = new ModelAndView();
+        //model.setViewName("person/dashboard");
+        model = personController.getUserDashboard(authentication,model);
         return model;
     }
 
@@ -132,9 +171,16 @@ public class RequestController {
     /**
      * Delete Request
      */
-    @RequestMapping(method=RequestMethod.DELETE,value="")
-    public void deleteTransaction(@PathVariable long id) {
+    @RequestMapping(method=RequestMethod.GET,value="/delete/{id}")
+    public ModelAndView deleteTransaction(@PathVariable long id, Authentication authentication) {
         requestService.deleteRequest(id);
+
+        // Return to dashboard
+
+        ModelAndView model = new ModelAndView();
+        //model.setViewName("person/dashboard");
+        model = personController.getUserDashboard(authentication,model);
+        return model;
     }
 
 }

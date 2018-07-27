@@ -67,8 +67,8 @@ public class RequestService {
             dateFilled = "";
             filledStatus = "Unfilled";
         } else {
-            fulfillerFirstName = userService.getPerson(request.getUserId()).get().getName();
-            fulfillerLastName = userService.getPerson(request.getUserId()).get().getLastName();
+            fulfillerFirstName = userService.getPerson(request.getFillerId()).get().getName();
+            fulfillerLastName = userService.getPerson(request.getFillerId()).get().getLastName();
             dateFilled = request.getDateFilled().toString();
             filledStatus = "Filled";
         }
