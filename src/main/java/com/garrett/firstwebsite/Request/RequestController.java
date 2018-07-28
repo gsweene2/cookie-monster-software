@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.jws.WebParam;
 import java.time.LocalDate;
@@ -172,15 +173,19 @@ public class RequestController {
      * Delete Request
      */
     @RequestMapping(method=RequestMethod.GET,value="/delete/{id}")
-    public ModelAndView deleteTransaction(@PathVariable long id, Authentication authentication) {
+    public RedirectView deleteTransaction(@PathVariable long id, Authentication authentication) {
         requestService.deleteRequest(id);
 
         // Return to dashboard
-
+        /*
         ModelAndView model = new ModelAndView();
         //model.setViewName("person/dashboard");
         model = personController.getUserDashboard(authentication,model);
         return model;
+        */
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("/person/allRequests");
+        return redirectView;
     }
 
 }
