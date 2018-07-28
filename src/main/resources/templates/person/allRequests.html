@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <div th:replace="fragments/header :: header"></div>
+    <div th:replace="fragments/navbar :: navbar"></div>
+    <div th:replace="fragments/hellobar :: hellobar"></div>
+
+    <body>
+    <div class="container">
+
+        <h1 style="font-family: 'Pacifico', cursive; font-size: 300%">Dashboard</h1>
+
+        <div th:replace="fragments/tabs :: tabs" style="padding-after: 15px;"></div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <h3>Recent Requests</h3>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Request ID</th>
+                        <th scope="col">Item</th>
+                        <th scope="col">Requestor</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Filled By</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="req : ${allRequests}">
+                        <th scope="row" th:text="${req.id}"></th>
+                        <td th:text="${req.itemName}"></td>
+                        <td th:text="${req.requestorFirstName} + ' ' + ${req.requestorLastName}"></td>
+                        <td th:text="${req.filledStatus}"></td>
+                        <td th:text="${req.filledByFirstName} + ' ' + ${req.filledByLastName}"></td>
+                        <td th:switch="${req.filledStatus}">
+                            <p th:case="Unfilled"><a th:href="@{'/request/delete/' + ${req.id}}" >Delete</a> | <a th:href="@{'/request/fulfill/' + ${req.id}}" >Mark Filled</a></p>
+                            <p th:case="*"><a th:href="@{'/request/delete/' + ${req.id}}" >Delete</a> | Filled</p>
+                        </td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div th:replace="fragments/footer :: footer"></div>
+    </body>
+</html>

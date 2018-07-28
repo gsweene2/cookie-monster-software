@@ -5,16 +5,20 @@
     <div th:replace="fragments/navbar :: navbar"></div>
     <div th:replace="fragments/hellobar :: hellobar"></div>
 
-    <body class="container">
-    <h1 style="font-family: 'Pacifico', cursive; font-size: 300%">Dashboard</h1>
+    <body>
 
-    <div th:replace="fragments/tabs :: tabs" style="padding-after: 15px;"></div>
-        <h1>Result</h1>
-        <p th:text="'Name: ' + ${item.name}" />
-        <p th:text="'Cost: ' + ${item.amount}" />
-        <p th:text="'In Stock: ' + ${item.instock}" />
+        <div class="container">
+            <h1 style="font-family: 'Pacifico', cursive; font-size: 300%">Dashboard</h1>
 
-        <a href="/item/create">Create another item</a>
+            <div th:replace="fragments/tabs :: tabs" style="padding-after: 15px;"></div>
+            <h1>Result</h1>
+            <p th:text="'Name: ' + ${item.name}" />
+            <p th:text="'Cost: ' + ${item.amount}" />
+            <p th:text="'In Stock: ' + ${item.instock}" />
+
+            <a href="/item/create">Create another item</a>
+        </div>
+        <div th:replace="fragments/footer :: footer"></div>
     </body>
-    <div th:replace="fragments/footer :: footer"></div>
+
 </html>

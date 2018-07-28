@@ -5,21 +5,24 @@
     <div th:replace="fragments/navbar :: navbar"></div>
     <div th:replace="fragments/hellobar :: hellobar"></div>
 
-    <body class="container">
-    <h1 style="font-family: 'Pacifico', cursive; font-size: 300%">Dashboard</h1>
+    <body>
+        <div class="container">
+            <h1 style="font-family: 'Pacifico', cursive; font-size: 300%">Dashboard</h1>
 
-    <div th:replace="fragments/tabs :: tabs" style="padding-after: 15px;"></div>
-        <h1>Place a Snack Order</h1>
-        <div class="row">
-            <div class="col-md-6">
-                <form action="#" th:action="@{/request/create}" th:object="${requestPassed}" method="post">
-                    <p>Select an Item<select class="form-control" th:field="*{itemId}">
-                        <option th:each="item : ${possibleItems}" th:value="${item.id}" th:text="${item.name} + ' ($' + ${item.amount} + ') '"></option>
-                    </select></p>
-                    <p><input type="submit" value="Place Order" /></p>
-                </form>
+            <div th:replace="fragments/tabs :: tabs" style="padding-after: 15px;"></div>
+            <h1>Place a Snack Order</h1>
+            <div class="row">
+                <div class="col-md-6">
+                    <form action="#" th:action="@{/request/create}" th:object="${requestPassed}" method="post">
+                        <p>Select an Item<select class="form-control" th:field="*{itemId}">
+                            <option th:each="item : ${possibleItems}" th:value="${item.id}" th:text="${item.name} + ' ($' + ${item.amount} + ') '"></option>
+                        </select></p>
+                        <p><input type="submit" value="Place Order" /></p>
+                    </form>
+                </div>
             </div>
         </div>
+        <div th:replace="fragments/footer :: footer"></div>
     </body>
-    <div th:replace="fragments/footer :: footer"></div>
+
 </html>
