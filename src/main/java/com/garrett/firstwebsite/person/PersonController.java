@@ -15,6 +15,7 @@ import org.springframework.security.core.Authentication;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 import org.thymeleaf.util.Validate;
 
 import java.util.*;
@@ -77,13 +78,18 @@ public class PersonController {
     }
 
     @PostMapping("/register")
-    public ModelAndView createPersonResult(@ModelAttribute Person person, Authentication authentication){
+    public RedirectView createPersonResult(@ModelAttribute Person person, Authentication authentication){
         ModelAndView model = new ModelAndView();
         person.setUserId(userRepository.findByEmail(authentication.getName()).getId());
         personService.addPerson(person);
+        /*
         model.addObject("person",person);
         model.setViewName("person/dashboard");
         return model;
+        */
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("/person/dashboard");
+        return redirectView;
     }
 
     @GetMapping("/dashboard")
