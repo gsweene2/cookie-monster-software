@@ -179,66 +179,10 @@ public class PersonController {
 
     @GetMapping("/myRequests")
     public ModelAndView myRequests(Authentication authentication, ModelAndView model){
-        //get the current logged in person by
-        //using the Authentication to get EMAIL,
-        //and returning the user associated with the email
 
         Validate.notNull(authentication.getName(), "Garrett: When loading dashbaord, authentication has no name");
         User thisUser = userRepository.findByEmail(authentication.getName());
         Validate.notNull(thisUser, "Garrett: When loading the dashboard, could not find the user in the user repo!");
-        //Log4J2LoggingSystem logger = new Log4J2LoggingSystem(ClassLoader.getSystemClassLoader());
-
-
-
-        //Now that we have the user, we can get the userId
-        //and perform a search in the personRepository to find out
-        //if we have data for them
-
-        Validate.notNull(thisUser.getId(), "Garrett: The found User Object has a null userid");
-        Person thisPerson = personRepository.findByUserId(thisUser.getId());
-
-        // DO NOT VALIDATE IF THEY ARE NOT NULL, WILL BE CREATED IN NEXT BLOCK!
-        //Validate.notNull(thisUser.getId(), "Garrett: The current User obj's id is null");
-        //Validate.notNull(thisPerson, "Garrett: Could not find Person based on User id");
-
-        // ToDo: Make User class primary key a long!!
-
-        if (thisPerson == null){
-            model.addObject("personPassed", new Person());
-            model.addObject("professionsList", professionService.getProfessions());
-            model.setViewName("person/register");
-            return model;
-        }
-
-        long thispersonId = thisUser.getId();
-        personRepository.findByUserId(thispersonId);
-
-        //Now that we may have a person, we can determine if they need to fill out info!
-        model.addObject("thisuser",thisUser);
-        model.addObject("person", thisPerson);
-        model.addObject("profession",professionService.getProfession(Integer.toUnsignedLong(thisPerson.getProfessionId())).get());
-
-        // ************************************** //
-        // *********** Other Users ************** //
-        // ************************************** //
-
-        List<Person> otherUsers = personService.getPersons();
-        ArrayList<PrettyPerson> otherPrettyUsers = new ArrayList<PrettyPerson>();
-        for (Person p1 : otherUsers){
-            otherPrettyUsers.add(new PrettyPerson(p1.getId(),
-                    p1.getUserId(),
-                    //ToDo: find out why erroring out!
-                    userService.getPerson(p1.getUserId()).get().getName(),
-                    userService.getPerson(p1.getUserId()).get().getLastName(),
-                    professionService.getProfession(Integer.toUnsignedLong(p1.getProfessionId())).get().name
-            ));
-        }
-        model.addObject("otherPrettyUsers", otherPrettyUsers);
-
-
-        // ************************************** //
-        // *********** User's Unfilled Request ************** //
-        // ************************************** //
 
         List<Request> allRequests = requestService.getAllRequest();
         ArrayList<PrettyRequest> prettyRequestsList = new ArrayList<>();
@@ -252,19 +196,6 @@ public class PersonController {
         Collections.reverse(prettyRequestsList);
 
         model.addObject("usersRequests",prettyRequestsList);
-
-
-        // ************************************** //
-        // *********** All Users Request ************** //
-        // ************************************** //
-
-        ArrayList<PrettyRequest> allPrettyRequests = new ArrayList<>();
-        for (Request req : allRequests){
-            allPrettyRequests.add(requestService.requestToPrettyRequest(req));
-        }
-        Collections.reverse(allPrettyRequests);
-
-        model.addObject("allRequests", allPrettyRequests);
 
         model.setViewName("person/myRequests");
         return model;
