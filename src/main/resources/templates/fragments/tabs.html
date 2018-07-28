@@ -20,16 +20,16 @@
             <a th:unless="${#httpServletRequest.requestURI} == '/request/create'" class="nav-link" th:href="@{/request/create}">New Request</a>
         </li>
         <li class="nav-item">
-            <a th:if="${#httpServletRequest.requestURI} == '/person/dashboard'" class="nav-link active" th:href="@{/person/dashboard}">Your Requests</a>
-            <a th:unless="${#httpServletRequest.requestURI} == '/person/dashboard'" class="nav-link" th:href="@{/person/dashboard}">Your Requests</a>
+            <a th:if="${#httpServletRequest.requestURI} == '/person/myRequests'" class="nav-link active" th:href="@{/person/myRequests}">Your Requests</a>
+            <a th:unless="${#httpServletRequest.requestURI} == '/person/myRequests'" class="nav-link" th:href="@{/person/myRequests}">Your Requests</a>
         </li>
         <li class="nav-item">
-            <a th:if="${#httpServletRequest.requestURI} == '/person/dashboard'" class="nav-link active" th:href="@{/person/dashboard}">All Requests</a>
-            <a th:unless="${#httpServletRequest.requestURI} == '/person/dashboard'" class="nav-link" th:href="@{/person/dashboard}">All Requests</a>
+            <a th:if="${#httpServletRequest.requestURI} == '/person/allRequests'" class="nav-link active" th:href="@{/person/allRequests}">All Requests</a>
+            <a th:unless="${#httpServletRequest.requestURI} == '/person/allRequests'" class="nav-link" th:href="@{/person/allRequests}">All Requests</a>
         </li>
         <li class="nav-item">
-            <a th:if="${#httpServletRequest.requestURI} == '/person/dashboard'" class="nav-link active" th:href="@{/person/dashboard}">Other Users</a>
-            <a th:unless="${#httpServletRequest.requestURI} == '/person/dashboard'" class="nav-link" th:href="@{/person/dashboard}">Other Users</a>
+            <a th:if="${#httpServletRequest.requestURI} == '/person/allOthers'" class="nav-link active" th:href="@{/person/allOthers}">Other Users</a>
+            <a th:unless="${#httpServletRequest.requestURI} == '/person/allOthers'" class="nav-link" th:href="@{/person/allOthers}">Other Users</a>
         </li>
         <li class="nav-item">
             <a th:if="${#httpServletRequest.requestURI} == '/item/create'" class="nav-link active" th:href="@{/item/create}">Add New Snack Option</a>

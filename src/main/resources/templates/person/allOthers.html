@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <div th:replace="fragments/header :: header"></div>
+    <div th:replace="fragments/navbar :: navbar"></div>
+    <div th:replace="fragments/hellobar :: hellobar"></div>
+
+    <body>
+    <div class="container">
+
+        <h1 style="font-family: 'Pacifico', cursive; font-size: 300%">Dashboard</h1>
+
+        <div th:replace="fragments/tabs :: tabs" style="padding-after: 15px;"></div>
+
+        <h3>Featured Users!</h3>
+        <p><a th:href="@{/person/search}" >View All Others</a></p>
+
+        <div class="row">
+            <div class="col-md-12 row">
+                <div th:each="other : ${otherPrettyUsers}" class="col-md-6 row">
+                        <div class="col-md-3">
+                            <!-- https://s3.amazonaws.com/alumnest-profiles/profile-icon.png -->
+                            <img style="width:100%;" src="https://s3.amazonaws.com/alumnest-profiles/profile-icon.png" alt="Smiley face">
+                        </div>
+                        <div class="col-md-9">
+                            <h5 th:text="${other.firstName} + ' ' + ${other.lastName}" />
+                            <p><label th:text="${other.profession}"></label> | <a th:href="@{'/person/about/' + ${other.id}}" >Learn More</a></p>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+    <div th:replace="fragments/footer :: footer"></div>
+</html>

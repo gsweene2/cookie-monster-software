@@ -5,20 +5,22 @@
     <div th:replace="fragments/navbar :: navbar"></div>
     <div th:replace="fragments/hellobar :: hellobar"></div>
 
-    <body class="container">
-    <h1 style="font-family: 'Pacifico', cursive; font-size: 300%">Dashboard</h1>
+    <body>
+        <div class="container">
+            <h1 style="font-family: 'Pacifico', cursive; font-size: 300%">Dashboard</h1>
 
-    <div th:replace="fragments/tabs :: tabs" style="padding-after: 15px;"></div>
-        <h1>Request Submitted!</h1>
-        <p th:text="'Order ID: ' + ${prettyRequest.id}" />
-        <p th:text="'Item: ' + ${prettyRequest.itemName}" />
-        <p th:text="'Cost: ' + ${prettyRequest.itemCost}" />
-        <p th:text="'Requestor: ' + ${prettyRequest.requestorFirstName} + ' ' + ${prettyRequest.requestorLastName}" />
-        <p th:text="'Filled?: ' + ${prettyRequest.filledStatus}" />
-        <p th:text="'Date Requested: ' + ${prettyRequest.dateRequested}" />
-        <p th:text="'Date Filled: ' + ${prettyRequest.dateFilled}" />
+            <div th:replace="fragments/tabs :: tabs" style="padding-after: 15px;"></div>
+            <h1>Request Submitted!</h1>
+            <p th:text="'Order ID: ' + ${prettyRequest.id}" />
+            <p th:text="'Item: ' + ${prettyRequest.itemName}" />
+            <p th:text="'Cost: ' + ${prettyRequest.itemCost}" />
+            <p th:text="'Requestor: ' + ${prettyRequest.requestorFirstName} + ' ' + ${prettyRequest.requestorLastName}" />
+            <p th:text="'Filled?: ' + ${prettyRequest.filledStatus}" />
+            <p th:text="'Date Requested: ' + ${prettyRequest.dateRequested}" />
+            <p th:text="'Date Filled: ' + ${prettyRequest.dateFilled}" />
 
-        <a href="/request/create">Create another request</a>
+            <a href="/request/create">Create another request</a>
+        </div>
     </body>
     <div th:replace="fragments/footer :: footer"></div>
 </html>
