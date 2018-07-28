@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<div th:fragment="tabs">
+
+    <label th:text="${#httpServletRequest.requestURI}"></label>
+
+
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" th:href="@{/person/dashboard}">Overview</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/person/profile}">My Profile</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/request/create}">New Request</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/person/dashboard}">Your Requests</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/person/dashboard}">All Requests</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/person/dashboard}">Other Users</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/item/create}">Add New Snack Option</a>
+        </li>
+    </ul>
+    <br/>
+</div>
+
+</html>
+
+

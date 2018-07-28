@@ -7,6 +7,9 @@
 
     <body>
     <div class="container">
+        <h1 style="font-family: 'Pacifico', cursive; font-size: 300%">Dashboard</h1>
+
+        <div th:replace="fragments/tabs :: tabs" style="padding-after: 15px;"></div>
         <h3>My Profile</h3>
         <p th:text="'First Name: ' + ${thisuser.name}" />
         <p th:text="'Last Name: ' + ${thisuser.lastName}" />
