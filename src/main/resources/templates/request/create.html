@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <form action="#" th:action="@{/request/create}" th:object="${requestPassed}" method="post">
-                        <p>Select an Item<select class="form-control" th:field="*{itemId}">
+                        <p>Select an Item or <a th:href="@{/item/create}">Add a new item to the Snack Inventory</a><select class="form-control" th:field="*{itemId}">
                             <option th:each="item : ${possibleItems}" th:value="${item.id}" th:text="${item.name} + ' ($' + ${item.amount} + ') '"></option>
                         </select></p>
                         <p><input type="submit" value="Place Order" /></p>
