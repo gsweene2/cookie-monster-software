@@ -8,13 +8,34 @@
     <body>
     <div class="container">
 
-        <h1 style="font-family: 'Pacifico', cursive; font-size: 300%">Dashboard</h1>
+        <h3 style="font-family: 'Pacifico', cursive; font-size: 300%">Dashboard</h3>
 
         <div th:replace="fragments/tabs :: tabs" style="padding-after: 15px;"></div>
 
+        <div class="col-md-12 row">
+            <div style="background-color: #99c199; height:100px; border: 2px solid #006400; display: inline-block; width: 48%; padding: 4%; border-radius: 5px;" role="alert">
+                <h3><span class="badge badge-secondary">4</span> Active Members</h3>
+            </div>
+            <div style="height:100px; border: 0px solid; display: inline-block; width: 4%;" role="alert">
+            </div>
+            <div style="background-color: #B19CD9; height:100px; border: 2px solid #573B8C; display: inline-block; width: 48%; padding: 4%; border-radius: 5px;" role="alert">
+                <h3><span class="badge badge-secondary">4</span> Open Requests</h3>
+            </div>
+            <div style="height:10px; width: 100%;"></div>
+
+            <div style="background-color: #FF7373; height:100px; border: 2px solid #CC0000; display: inline-block; width: 48%; padding: 4%; border-radius: 5px;" role="alert">
+                <h3><span class="badge badge-secondary">4</span> Filled Requests</h3>
+            </div>
+            <div style="height:100px; border: 0px solid; display: inline-block; width: 4%;" role="alert">
+            </div>
+            <div style="background-color: #FFCEB6; height:100px; border: 2px solid #FF8243; display: inline-block; width: 48%; padding: 4%; border-radius: 5px;" role="alert">
+                <h3><span class="badge badge-secondary">4</span> Snack Options Available</h3>
+            </div>
+
+        </div>
+
 
     </div>
-
 
     </body>
     <div th:replace="fragments/footer :: footer"></div>
