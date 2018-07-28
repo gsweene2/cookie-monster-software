@@ -89,7 +89,7 @@ public class RequestController {
     }
 
     @PostMapping("/fulfill/{id}")
-    public ModelAndView fulfillRequest(@PathVariable("id") Long id, Authentication authentication){
+    public RedirectView fulfillRequest(@PathVariable("id") Long id, Authentication authentication){
 
         // Get Request
         Request request = requestService.getRequest(id).get();
@@ -104,11 +104,10 @@ public class RequestController {
 
 
         // Return Dashboard
-        //Example on how to route!
-        ModelAndView model = new ModelAndView();
-        //model.setViewName("person/dashboard");
-        model = personController.getUserDashboard(authentication,model);
-        return model;
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("/person/allRequests");
+        return redirectView;
+
     }
 
     public PrettyRequest requestToPrettyRequest(Request request){
