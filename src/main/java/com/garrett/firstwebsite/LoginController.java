@@ -82,7 +82,7 @@ public class LoginController {
         User user = new User();
         modelAndView.addObject("user", user);
         //After register, send to login page
-        modelAndView.setViewName("/registration");
+        modelAndView.setViewName("/signUp");
         return modelAndView;
     }
 
@@ -96,7 +96,7 @@ public class LoginController {
                             "There is already a user registered with the email provided");
         }
         if (bindingResult.hasErrors()) {
-            modelAndView.setViewName("registration");
+            modelAndView.setViewName("signUp");
         } else {
             //Set the role for our basic user
             Set<Role> roles = new HashSet<Role>();
