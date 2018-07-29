@@ -76,6 +76,40 @@ public class LoginController {
         return modelAndView;
     }
 
+    @RequestMapping(value="/signUp", method = RequestMethod.GET)
+    public ModelAndView signUp(){
+        ModelAndView modelAndView = new ModelAndView();
+        User user = new User();
+        modelAndView.addObject("user", user);
+        //After register, send to login page
+        modelAndView.setViewName("/registration");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/signUp", method = RequestMethod.POST)
+    public ModelAndView postSignUp(@Valid User user, BindingResult bindingResult) {
+        ModelAndView modelAndView = new ModelAndView();
+        User userExists = userService.findUserByEmail(user.getEmail());
+        if (userExists != null) {
+            bindingResult
+                    .rejectValue("email", "error.user",
+                            "There is already a user registered with the email provided");
+        }
+        if (bindingResult.hasErrors()) {
+            modelAndView.setViewName("registration");
+        } else {
+            //Set the role for our basic user
+            Set<Role> roles = new HashSet<Role>();
+            Role role = roleRepository.findByRole("USER");
+            roles.add(role);
+            user.setRoles(roles);
+            userService.saveUser(user);
+            modelAndView.addObject("successMessage", "User has been registered successfully");
+            modelAndView.setViewName("login");
+        }
+        return modelAndView;
+    }
+
     @RequestMapping(value="/admin/home", method = RequestMethod.GET)
     public ModelAndView home(){
         ModelAndView modelAndView = new ModelAndView();
