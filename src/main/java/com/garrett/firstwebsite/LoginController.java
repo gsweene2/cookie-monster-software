@@ -48,7 +48,7 @@ public class LoginController {
         User user = new User();
         modelAndView.addObject("user", user);
         //After register, send to login page
-        modelAndView.setViewName("/registration");
+        modelAndView.setViewName("registration");
         return modelAndView;
     }
 
@@ -76,17 +76,17 @@ public class LoginController {
         return modelAndView;
     }
 
-    @RequestMapping(value="/signUp", method = RequestMethod.GET)
+    @RequestMapping(value="/signup", method = RequestMethod.GET)
     public ModelAndView signUp(){
         ModelAndView modelAndView = new ModelAndView();
         User user = new User();
         modelAndView.addObject("user", user);
         //After register, send to login page
-        modelAndView.setViewName("/registration");
+        modelAndView.setViewName("signup");
         return modelAndView;
     }
 
-    @RequestMapping(value = "/signUp", method = RequestMethod.POST)
+    @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public ModelAndView postSignUp(@Valid User user, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         User userExists = userService.findUserByEmail(user.getEmail());
@@ -96,7 +96,7 @@ public class LoginController {
                             "There is already a user registered with the email provided");
         }
         if (bindingResult.hasErrors()) {
-            modelAndView.setViewName("registration");
+            modelAndView.setViewName("signup");
         } else {
             //Set the role for our basic user
             Set<Role> roles = new HashSet<Role>();
