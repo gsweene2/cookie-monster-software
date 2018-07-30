@@ -48,7 +48,7 @@ public class LoginController {
         User user = new User();
         modelAndView.addObject("user", user);
         //After register, send to login page
-        modelAndView.setViewName("/registration");
+        modelAndView.setViewName("registration");
         return modelAndView;
     }
 
@@ -82,7 +82,7 @@ public class LoginController {
         User user = new User();
         modelAndView.addObject("user", user);
         //After register, send to login page
-        modelAndView.setViewName("/signup");
+        modelAndView.setViewName("signup");
         return modelAndView;
     }
 
