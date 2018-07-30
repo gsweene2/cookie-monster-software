@@ -31,8 +31,16 @@ public class FirstWebsiteApplicationTests {
 
 	@Test
 	public void createUser_withCorrectUserObject_shouldInsertUser(){
+		// Create role
 		Set<Role> roles = new HashSet<Role>();
 		Role role = new Role(1,"USER");
+
+		// delete if exists
+		Role existingRole = roleRepository.findByRole("USER");
+		if (existingRole != null){
+			roleRepository.delete(existingRole);
+		}
+
 		roles.add(role);
 		roleRepository.save(role);
 		User user1 = new User(1,"g@mail.com","pass","Gar","Swe","5403144892",1,roles);
