@@ -10,13 +10,31 @@
             <h1 style="font-family: 'Pacifico', cursive; font-size: 300%">Dashboard</h1>
 
             <div th:replace="fragments/tabs :: tabs" style="padding-after: 15px;"></div>
-            <h1>Create an Item</h1>
-            <form action="#" th:action="@{/item/create}" th:object="${itemPassed}" method="post">
-                <p>Name <input type="text" th:field="*{name}"></p>
-                <p>Amount <input type="text" th:field="*{amount}" /></p>
-                <p>In Stock? <input type="text" th:field="*{instock}" /></p>
-                <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-            </form>
+            <h1>Add to the Snack Inventory!</h1>
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+
+                    <form th:action="@{/item/create}" th:object="${itemPassed}" method="post">
+                        <div class="form-group">
+                            <label>Snack Name</label>
+                            <input class="form-control" type="text" th:field="*{name}" placeholder="Snack Name" autocomplete="off"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Cost</label>
+                            <input class="form-control" type="text" th:field="*{amount}" placeholder="Snack Cost" autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label>Cost</label>
+                            <select class="form-control" th:field="*{instock}">
+                                <option th:value="1">In Stock</option>
+                                <option th:value="0">Sold Out</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </body>
     <div th:replace="fragments/footer :: footer"></div>
