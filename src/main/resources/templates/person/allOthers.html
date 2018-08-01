@@ -12,8 +12,7 @@
 
         <div th:replace="fragments/tabs :: tabs" style="padding-after: 15px;"></div>
 
-        <h3>Featured Users!</h3>
-        <p><a th:href="@{/person/search}" >View All Others</a></p>
+        <h3>Other Snackers!</h3>
 
         <div class="row">
             <div class="col-md-12 row">
@@ -24,7 +23,7 @@
                         </div>
                         <div class="col-md-9">
                             <h5 th:text="${other.firstName} + ' ' + ${other.lastName}" />
-                            <p><label th:text="${other.profession}"></label> | <a th:href="@{'/person/about/' + ${other.id}}" >Learn More</a></p>
+                            <p><label th:text="${other.profession}"></label> | <a th:href="@{'/person/about/' + ${other.userId}}" >Learn More</a></p>
                         </div>
                 </div>
             </div>

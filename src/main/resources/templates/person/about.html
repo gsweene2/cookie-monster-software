@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <div th:replace="fragments/header :: header"></div>
+    <div th:replace="fragments/navbar :: navbar"></div>
+    <div th:replace="fragments/hellobar :: hellobar"></div>
+
+    <body>
+        <div class="container">
+            <h1 style="font-family: 'Pacifico', cursive; font-size: 300%">Dashboard</h1>
+
+            <div th:replace="fragments/tabs :: tabs" style="padding-after: 15px;"></div>
+            <h3>More about <label th:text="${thisuser.name}"></label></h3>
+            <p th:text="'First Name: ' + ${thisuser.name}" />
+            <p th:text="'Last Name: ' + ${thisuser.lastName}" />
+            <p th:text="'Email: ' + ${thisuser.email}" />
+            <p th:text="'Phone: ' + ${thisuser.phone}" />
+            <p th:text="'Profession: ' + ${profession.name}" />
+
+            <a th:href="@{/person/allOthers}">Return to Sea of People</a>
+        </div>
+    </body>
+    <div th:replace="fragments/footer :: footer"></div>
+</html>
