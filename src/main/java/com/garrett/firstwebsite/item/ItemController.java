@@ -26,23 +26,8 @@ public class ItemController {
      */
     @RequestMapping("")
     public String getAllTransactions(Model model) {
-        List<Item> items = itemService.getAllItem();
-        List<PrettyItem> prettyItems = new ArrayList<>();
-        for (Item item : items){
-            prettyItems.add(itemToPrettyItem(item));
-        }
-        model.addAttribute("allItems", prettyItems);
+        List<PrettyItem> items = itemService.getAllPrettyItem();
         return "item/allItems";
-    }
-
-    private PrettyItem itemToPrettyItem(Item item){
-        Numbers numbers = new Numbers(new Locale("en","US"));
-        return new PrettyItem(
-                item.getId(),
-                item.getName(),
-                numbers.formatCurrency(item.getAmount()),
-                item.getInstock()
-        );
     }
 
     @RequestMapping("/create")

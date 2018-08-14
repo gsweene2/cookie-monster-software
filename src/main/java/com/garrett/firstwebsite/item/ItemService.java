@@ -2,9 +2,11 @@ package com.garrett.firstwebsite.item;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.expression.Numbers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @Service
@@ -29,6 +31,30 @@ public class ItemService {
         itemRepository.findAll().forEach(items::add);
         // return the list
         return items;
+    }
+
+    public List<PrettyItem> getAllPrettyItem(){
+        //return items
+        //
+        List<Item> items = new ArrayList<>();
+        // Lambda
+        itemRepository.findAll().forEach(items::add);
+        List<PrettyItem> prettyItems = new ArrayList<>();
+        for (Item item : items){
+            prettyItems.add(itemToPrettyItem(item));
+        }
+        // return the list
+        return prettyItems;
+    }
+
+    private PrettyItem itemToPrettyItem(Item item){
+        Numbers numbers = new Numbers(new Locale("en","US"));
+        return new PrettyItem(
+                item.getId(),
+                item.getName(),
+                numbers.formatCurrency(item.getAmount()),
+                item.getInstock()
+        );
     }
 
     public Optional<Item> getItem(long id) {

@@ -59,7 +59,7 @@ public class RequestController {
 
     @RequestMapping("/create")
     public String createRequestForm(Model model){
-        model.addAttribute("possibleItems", itemService.getAllItem());
+        model.addAttribute("possibleItems", itemService.getAllPrettyItem());
         model.addAttribute("requestPassed", new Request());
         return "request/create";
     }
