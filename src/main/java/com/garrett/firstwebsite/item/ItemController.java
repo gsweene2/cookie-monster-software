@@ -4,7 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.thymeleaf.expression.Numbers;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @Controller
@@ -22,8 +26,23 @@ public class ItemController {
      */
     @RequestMapping("")
     public String getAllTransactions(Model model) {
-        model.addAttribute("allItems", itemService.getAllItem());
+        List<Item> items = itemService.getAllItem();
+        List<PrettyItem> prettyItems = new ArrayList<>();
+        for (Item item : items){
+            prettyItems.add(itemToPrettyItem(item));
+        }
+        model.addAttribute("allItems", prettyItems);
         return "item/allItems";
+    }
+
+    private PrettyItem itemToPrettyItem(Item item){
+        Numbers numbers = new Numbers(new Locale("en","US"));
+        return new PrettyItem(
+                item.getId(),
+                item.getName(),
+                numbers.formatCurrency(item.getAmount()),
+                item.getInstock()
+        );
     }
 
     @RequestMapping("/create")
